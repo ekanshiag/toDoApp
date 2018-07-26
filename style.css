@@ -1,5 +1,12 @@
-/*
 #newTaskBar #newTask{
 	width: 100%;
 }
-*/
+
+div{
+	display: block;
+	margin: 20;
+}
+
+#options:active{
+	background-color: purple;
+}
