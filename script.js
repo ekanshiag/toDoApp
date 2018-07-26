@@ -1,3 +1,6 @@
+var allTasks = []
+var tasksDone = []
+
 var task = document.getElementById('newTask')
 task.addEventListener('keypress', (event) => {
   const keyName = event.key
@@ -121,25 +124,3 @@ task.addEventListener('keypress', (event) => {
     task.value = ''
   }
 })
-
-/*
-function trackTasks () {
-  let taskList = document.querySelectorAll('#tasks div')
-  let task = taskList[taskList.length - 1]
-  let done = task.firstChild
-
-  done.onclick = function () {
-  	var doneTasksList = document.getElementById('doneTasks')
-  	for (let i = 0; i < task.childNodes.length - 1; i++) {
-  		task.childNodes[i].disabled = true
-  	}
-  	doneTasksList.appendChild(task)
-  }
-
-  let deleteOption = task.lastChild
-
-  deleteOption.onclick = function () {
-  	task.parentNode.removeChild(task)
-  }
-}
-*/
