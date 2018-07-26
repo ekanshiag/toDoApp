@@ -14,49 +14,47 @@ task.addEventListener('keypress', (event) => {
     var newDiv = document.createElement('div')
     let taskItems = []
 
-    var newTaskItem = createCustomElement('input', 'checkbox', 'taskCheck', task.value, null)
+    var newTaskItem = createCustomElement('input', 'checkbox', 'taskCheck', task.value)
  	taskItems.push(newTaskItem)
 
     newTaskItem.onclick = function () {
+    	newTaskItem.disabled = true
   		var doneTasksList = document.getElementById('doneTasks')
-  		for (let i = 0; i < newDiv.childNodes.length - 1; i++) {
-  			if (i === 2) {
-  				continue
-  			}
-  			newDiv.childNodes[i].disabled = true
-  		}
   		doneTasksList.appendChild(newDiv)
   	}
 
-    var newTaskLabel = createCustomLabel(task.value, 'taskCheck')
-    taskItems.push(newTaskLabel)
+    var newTask = createCustomElement('p', null, null, null, task.value)
+    taskItems.push(newTask)
+    newTask.ondblclick = function () {
+    	let x = prompt('Edit task:')
+    	if (x !== '' && x !== null) {
+    		newTask.textContent = x
+    	}
+    }
 
     var optionButton = createCustomElement('button', 'button', 'options', null, '^')
     taskItems.push(optionButton)
 
-    var noteLabel = createCustomLabel('Notes', 'note')
-    noteLabel.hidden = true
-    taskItems.push(noteLabel)
+    var optionDiv = document.createElement('div')
+    let options = []
+
+    var noteLabel = createCustomLabel('Notes', 'note', 'notePointer')
+    options.push(noteLabel)
 
     var taskNote = createCustomElement('textarea', null, 'note')
-    taskNote.hidden = true
-    taskItems.push(taskNote)
+    options.push(taskNote)
 
-   	var dueDateLabel = createCustomLabel('Due Date', 'taskDueBy')
-   	dueDateLabel.hidden = true
-   	taskItems.push(dueDateLabel)
+   	var dueDateLabel = createCustomLabel('Due Date', 'taskDueBy', 'dueDatePointer')
+   	options.push(dueDateLabel)
 
    	var dueDate = createCustomElement('input', 'date', 'taskDueBy')
-   	dueDate.hidden = true
-   	taskItems.push(dueDate)
+   	options.push(dueDate)
 
-   	var priorityLabel = createCustomLabel('Priority', 'Priority')
-   	priorityLabel.hidden = true
-   	taskItems.push(priorityLabel)
+   	var priorityLabel = createCustomLabel('Priority', 'Priority', 'priorityPointer')
+   	options.push(priorityLabel)
 
    	var prioritySelect = createCustomElement('select', null, 'Priority')
-   	prioritySelect.hidden = true
-   	taskItems.push(prioritySelect)
+   	options.push(prioritySelect)
 
    	var lowPriorOption = createCustomElement('option', null, null, null, 'Low')
    	var medPriorOption = createCustomElement('option', null, null, null, 'Medium')
@@ -65,33 +63,28 @@ task.addEventListener('keypress', (event) => {
    	prioritySelect.appendChild(medPriorOption)
    	prioritySelect.appendChild(highPriorOption)
 
-   	var deleteButton = createCustomElement('button', 'button', null, null, 'Delete')
-   	deleteButton.hidden = true
-   	taskItems.push(deleteButton)
+   	var deleteButton = createCustomElement('button', 'button', 'delete', null, 'Delete')
+   	options.push(deleteButton)
 
    	deleteButton.onclick = function () {
   		newDiv.parentNode.removeChild(newDiv)
   	}
 
-   	optionButton.onclick = function () {
-   		if (noteLabel.hidden) {
-   			noteLabel.hidden = false
-   			taskNote.hidden = false
-   			dueDateLabel.hidden = false
-   			dueDate.hidden = false
-   			priorityLabel.hidden = false
-   			prioritySelect.hidden = false
-   			deleteButton.hidden = false
+  	for (let i = 0; i < options.length; i++) {
+  		optionDiv.appendChild(options[i])
+  	}
+  	optionDiv.hidden = true
+   	taskItems.push(optionDiv)
+
+   	optionButton.addEventListener('click', () => {
+   		if (optionDiv.hidden) {
+   			optionDiv.hidden = false
+   			optionDiv.id = 'moreOptions'
    		} else {
-   			noteLabel.hidden = true
-   			taskNote.hidden = true
-   			dueDateLabel.hidden = true
-   			dueDate.hidden = true
-   			priorityLabel.hidden = true
-   			prioritySelect.hidden = true
-   			deleteButton.hidden = true
+   			optionDiv.hidden = true
+   			optionDiv.id = null
    		}
-   	}
+   	})
 
    	for (let i = 0; i < taskItems.length; i++) {
    		newDiv.appendChild(taskItems[i])
@@ -99,11 +92,11 @@ task.addEventListener('keypress', (event) => {
 
     tasks.appendChild(newDiv)
 
-    let newTask = {}
-    newTask['des'] = task.value
-    newTask['class'] = 'left'
-    newTask['Priority'] = task.Priority
-    allTasks.push(newTask)
+    let newTaskObj = {}
+    newTaskObj['des'] = task.value
+    newTaskObj['class'] = 'left'
+    newTaskObj['Priority'] = task.Priority
+    allTasks.push(newTaskObj)
 
     task.value = ''
   }
@@ -118,9 +111,10 @@ function createCustomElement (ele, type, id, value, textContent) {
   return element
 }
 
-function createCustomLabel (textContent, ele) {
+function createCustomLabel (textContent, ele, id) {
   var label = document.createElement('label')
   label.textContent = textContent
   label.htmlFor = ele
+  if (id) label.id = id
   return label
 }

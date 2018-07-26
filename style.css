@@ -1,12 +1,107 @@
+html{
+	font-size: 10px;
+}
+body{
+	margin:0;
+	background-color:  #e6f2ff;
+}
+
+section span{
+	display: block;
+	font-size: 2em;
+	padding-left: 2px;
+	border-left: 3px solid #4d0000;
+	font-family: 'Bree Serif', serif;
+	font-weight: bold;
+	background-image: linear-gradient(to right, #ff1a1a, #ffcccc)
+}
+
+footer span{
+	display: block;
+	font-size: 2em;
+	padding-left: 2px;
+	border-left: 3px solid #003311;
+	font-family: 'Bree Serif', serif;
+	font-weight: bold;
+	background-image: linear-gradient(to right, #00e64d, #ccffdd)
+}
+
+section div, footer div, #newTask, div textarea{
+	font-family: 'Roboto', sans-serif;
+}
+
+section > div, footer > div{
+	margin: 1em;
+	border: 2px solid purple;
+	border-radius: 1px;
+	box-sizing: border-box;
+	background-color: #ffffcc;
+}
+
+div div{
+	margin: 1em;
+}
 #newTaskBar #newTask{
 	width: 100%;
+	color: red;
 }
 
-div{
-	display: block;
-	margin: 20;
+section, footer{
+	font-size: 1.5em;
+	margin: 20px;
 }
 
-#options:active{
-	background-color: purple;
+#options{
+	border: 0;
+	padding: 0;
+	margin-left: 20px;
+}
+
+p{
+	display: inline;
+	padding-left: 20px;
+}
+
+#moreOptions{
+	display: grid;
+	position: relative;
+	grid-template-columns:3fr 1fr 1fr;
+	column-gap: 10px;
+	row-gap:0px;
+	gap:10 px;
+}
+
+#moreOptions #notePointer{
+	grid-column:1;
+	grid-row:1;
+}
+
+#moreOptions #note{
+	grid-column:1;
+	grid-row:2/6;
+}
+
+#moreOptions #dueDatePointer{
+	grid-column:2/4;
+	grid-row:1;
+}
+
+#moreOptions #taskDueBy{
+	grid-column:2/4;
+	grid-row:2;
+}
+
+#moreOptions #priorityPointer{
+	grid-column:2/4;
+	grid-row:3;
+}
+
+#moreOptions #Priority{
+	grid-column:2/4;
+	grid-row:4;
+}
+
+#moreOptions #delete{
+	grid-column:3;
+	grid-row:6;
 }
