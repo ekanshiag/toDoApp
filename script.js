@@ -1,6 +1,3 @@
-var allTasks = []
-var tasksDone = []
-
 var task = document.getElementById('newTask')
 task.addEventListener('keypress', (event) => {
   const keyName = event.key
@@ -89,12 +86,6 @@ task.addEventListener('keypress', (event) => {
    	}
 
     tasks.appendChild(newDiv)
-
-    let newTaskObj = {}
-    newTaskObj['des'] = task.value
-    newTaskObj['class'] = 'left'
-    newTaskObj['Priority'] = task.Priority
-    allTasks.push(newTaskObj)
 
     task.value = ''
   }
