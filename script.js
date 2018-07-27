@@ -5,10 +5,8 @@ var task = document.getElementById('newTask')
 task.addEventListener('keypress', (event) => {
   const keyName = event.key
   if (keyName === 'Enter') {
-  	if (task.value === '') {
-  		do {
-  			task.value = prompt('Task cannot be empty')
-  		} while (task.value === '')
+  	if (/[\w]+/.exec(task.value) === null) {
+  		return
   	}
     var tasks = document.getElementById('tasks')
     var newDiv = document.createElement('div')
@@ -67,7 +65,7 @@ task.addEventListener('keypress', (event) => {
    	options.push(deleteButton)
 
    	deleteButton.onclick = function () {
-  		newDiv.parentNode.removeChild(newDiv)
+  		newDiv.remove()
   	}
 
   	for (let i = 0; i < options.length; i++) {
