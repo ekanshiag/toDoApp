@@ -54,12 +54,12 @@ window.onload = function () {
   })
 
   function display () {
-    while (openTasks.firstChild) {
-      openTasks.remove(openTasks.firstChild)
+    while (openTasks[0]) {
+      openTasks.remove(openTasks[0])
     }
 
-    while (doneTasks.firstChild) {
-      doneTasks.remove(doneTasks.firstChild)
+    while (doneTasks[0]) {
+      doneTasks.remove(doneTasks[0])
     }
 
     let objectStore = db.transaction('notes').objectStore('notes')
