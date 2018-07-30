@@ -30,7 +30,7 @@ section div, footer div, #newTask, div textarea{
 	font-family: 'Roboto', sans-serif;
 }
 
-section > div, footer > div{
+section > div > div, footer > div > div{
 	margin: 1em;
 	border: 2px solid purple;
 	border-radius: 1px;
