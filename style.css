@@ -1,5 +1,7 @@
 html{
 	font-size: 10px;
+	font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  	background-color:  #eff2f6;
 }
 body{
 	margin:0;
@@ -9,41 +11,42 @@ body{
 section span{
 	display: block;
 	font-size: 2em;
+	text-align: center;
 	padding-left: 2px;
-	border-left: 3px solid #4d0000;
-	font-family: 'Bree Serif', serif;
 	font-weight: bold;
-	background-image: linear-gradient(to right, #ff1a1a, #ffcccc)
 }
 
 footer span{
 	display: block;
 	font-size: 2em;
+	text-align: center;
 	padding-left: 2px;
-	border-left: 3px solid #003311;
-	font-family: 'Bree Serif', serif;
 	font-weight: bold;
-	background-image: linear-gradient(to right, #00e64d, #ccffdd)
 }
 
 section div, footer div, #newTask, div textarea{
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 }
 
 section > div > div, footer > div > div{
-	margin: 1em;
-	border: 2px solid purple;
-	border-radius: 1px;
-	box-sizing: border-box;
-	background-color: #ffffcc;
+  border: 3px solid #adbdd1;
+  border-radius: 1em;
+  background-color: #dee5ed;
+  box-sizing: content-box;
+  margin: 0.5em;
+  padding: 1em;
 }
 
 div div{
 	margin: 1em;
 }
 #newTaskBar #newTask{
-	width: 100%;
-	color: red;
+	margin-top: 2em;
+  width: 98%;
+  height: 2em;
+  color: #070707;
+  border: 3px solid #ced7e3;
+  border-radius: 1em;
 }
 
 section, footer{

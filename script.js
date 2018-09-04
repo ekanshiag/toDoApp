@@ -6,14 +6,13 @@ var tasksDone = document.getElementById('doneTasks')
 var openTasks = document.getElementById('openTasks')
 var closedTasks = document.getElementById('closedTasks')
 
-var myStorage = window.localStorage
 if (localStorage.getItem('tasks') !== null) {
   allTasks = JSON.parse(localStorage.getItem('tasks'))
 }
 
 window.addEventListener('load', () => {
   displayTasks()
-  task.addEventListener('keypress', (event) => {
+  task.addEventListener('keypress', event => {
     if (event.key === 'Enter') {
       if (/[\w]+/.exec(task.value) === null) {
         return
@@ -38,12 +37,21 @@ function displayTasks () {
 
   for (let i = 0; i < allTasks.length; i++) {
     let taskDiv = createNewTaskDiv(allTasks[i])
-    taskDiv['className'] === 'open' ? openTasks.appendChild(taskDiv) : closedTasks.appendChild(taskDiv)
+    taskDiv['className'] === 'open'
+      ? openTasks.appendChild(taskDiv)
+      : closedTasks.appendChild(taskDiv)
   }
 }
 
 function createNewTaskObj (desc, category, note, dueDate, priority) {
-  return ({'desc': desc, 'category': category, 'notes': note, 'dueDate': dueDate, 'Priority': priority})
+  console.log(dueDate)
+  return {
+    desc: desc,
+    category: category,
+    notes: note,
+    dueDate: dueDate,
+    Priority: priority
+  }
 }
 
 function createNewTaskDiv (task) {
@@ -51,11 +59,17 @@ function createNewTaskDiv (task) {
   newDiv['className'] = task['category']
   let taskItems = []
 
-  var newTaskItem = createCustomElement('input', 'checkbox', 'taskCheck', task['desc'])
+  var newTaskItem = createCustomElement(
+    'input',
+    'checkbox',
+    'taskCheck',
+    task['desc']
+  )
   taskItems.push(newTaskItem)
 
   newTaskItem.addEventListener('click', () => {
-    newTaskItem.parentNode['className'] = newTaskItem.parentNode['className'] === 'open' ? 'closed' : 'open'
+    newTaskItem.parentNode['className'] =
+      newTaskItem.parentNode['className'] === 'open' ? 'closed' : 'open'
     updateStorage(newDiv)
     displayTasks()
   })
@@ -72,7 +86,13 @@ function createNewTaskDiv (task) {
     }
   })
 
-  var optionButton = createCustomElement('button', 'button', 'options', null, '^')
+  var optionButton = createCustomElement(
+    'button',
+    'button',
+    'options',
+    null,
+    '^'
+  )
   taskItems.push(optionButton)
 
   var optionDiv = document.createElement('div')
@@ -81,30 +101,66 @@ function createNewTaskDiv (task) {
   var noteLabel = createCustomLabel('Notes', 'note', 'notePointer')
   options.push(noteLabel)
 
-  var taskNote = createCustomElement('textarea', null, 'note', null, task['notes'])
+  var taskNote = createCustomElement(
+    'textarea',
+    null,
+    'note',
+    null,
+    task['notes']
+  )
   options.push(taskNote)
   // taskNote.addEventListener('change', updateStorage(newDiv))
 
-  var dueDateLabel = createCustomLabel('Due Date', 'taskDueBy', 'dueDatePointer')
+  var dueDateLabel = createCustomLabel(
+    'Due Date',
+    'taskDueBy',
+    'dueDatePointer'
+  )
   options.push(dueDateLabel)
 
-  var dueDate = createCustomElement('input', 'date', 'taskDueBy', task['dueDate'])
+  var dueDate = createCustomElement(
+    'input',
+    'date',
+    'taskDueBy',
+    task['dueDate']
+  )
   options.push(dueDate)
 
-  var priorityLabel = createCustomLabel('Priority', 'Priority', 'priorityPointer')
+  var priorityLabel = createCustomLabel(
+    'Priority',
+    'Priority',
+    'priorityPointer'
+  )
   options.push(priorityLabel)
 
-  var prioritySelect = createCustomElement('select', null, 'Priority', task['Priority'])
+  var prioritySelect = createCustomElement(
+    'select',
+    null,
+    'Priority',
+    task['Priority']
+  )
   options.push(prioritySelect)
 
   var lowPriorOption = createCustomElement('option', null, null, null, 'Low')
-  var medPriorOption = createCustomElement('option', null, null, null, 'Medium')
+  var medPriorOption = createCustomElement(
+    'option',
+    null,
+    null,
+    null,
+    'Medium'
+  )
   var highPriorOption = createCustomElement('option', null, null, null, 'High')
   prioritySelect.appendChild(lowPriorOption)
   prioritySelect.appendChild(medPriorOption)
   prioritySelect.appendChild(highPriorOption)
 
-  var deleteButton = createCustomElement('button', 'button', 'delete', null, 'Delete')
+  var deleteButton = createCustomElement(
+    'button',
+    'button',
+    'delete',
+    null,
+    'Delete'
+  )
   options.push(deleteButton)
 
   deleteButton.addEventListener('click', () => {
@@ -132,9 +188,17 @@ function updateStorage (taskDiv, option) {
   let optionElements = taskElements[3].childNodes
   let updatePos = allTasks.findIndex(x => x['desc'] === taskElements[0].value)
   if (option === 'delete') {
-    allTasks = allTasks.slice(0, updatePos).concat(allTasks.slice(updatePos + 1))
+    allTasks = allTasks
+      .slice(0, updatePos)
+      .concat(allTasks.slice(updatePos + 1))
   } else {
-    taskObj = createNewTaskObj(taskElements[1].textContent, taskDiv.className, optionElements[1].value, optionElements[3].value, optionElements[5].value)
+    taskObj = createNewTaskObj(
+      taskElements[1].textContent,
+      taskDiv.className,
+      optionElements[1].value,
+      optionElements[3].value,
+      optionElements[5].value
+    )
     allTasks[updatePos] = taskObj
   }
   localStorage.setItem('tasks', JSON.stringify(allTasks))
